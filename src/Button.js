@@ -1,12 +1,28 @@
 import React from 'react'
 
-function Button({type , outputNumber , setoutputNumber ,operation ,ans , setAns ,setoperation}) {
+function Button({type ,  calcState , setCalcState}) {
+
+    const {outputNumber  ,operation ,ans } = calcState;
+
+    // const setState = (state , newValue ) => {
+    //     const temp = {...calcState}
+    //     temp[state] = newValue;
+    //     setCalcState(temp)
+    //     console.log(temp)
+    // }   
 
     const doOperation = (operationType , outputNumber , ans) => {
         switch(operationType) {
             case "+":
-                return outputNumber + ans ; 
                 
+                return outputNumber + ans ; 
+            case "X":
+                console.log(outputNumber * ans)
+                return outputNumber * ans;
+            case "/":
+                return ans / outputNumber;
+            case "-":
+                return ans - outputNumber;
             default:
                 return 
         }
@@ -14,35 +30,50 @@ function Button({type , outputNumber , setoutputNumber ,operation ,ans , setAns 
     
     const clickHandler = () => {
         const parsed = parseInt(type);
+
         if(isNaN(parsed)) { // if not a number
             switch(type) {
                 case "c":
-                    setoutputNumber(0);
-                    setAns(0);
+                    setCalcState({
+                        ans:0 ,
+                        outputNumber:0,
+                        operation:null
+                    })
                     break;
                 case "+":
                 case "-":
                 case "/":
                 case "%":
                 case "X":
+                    setCalcState({
+                        ans: doOperation(type , outputNumber , ans) ,
+                        outputNumber:0 ,
+                        operation:type
+                    })
                     
-                    setAns(doOperation(type , outputNumber , ans))
-                    setoutputNumber(0)
-                    setoperation(type)
+                    console.log(calcState)
                     break;
+                    
                 case "=": 
-                    console.log(operation , outputNumber, ans ,doOperation(type , outputNumber ,ans))
-                    setoutputNumber(doOperation(operation , outputNumber ,ans));
-                    setoperation(null)
-                    setAns(0);
-
+                    console.log(calcState)
+                    setCalcState({
+                        ...calcState, 
+                        ans: 0 ,
+                        outputNumber:doOperation(operation , outputNumber ,ans) ,
+                        operation:null
+                    })
+                    
                     break;
                 default:
                     return 
             }
         }
         else { // if it is a number
-            setoutputNumber(outputNumber*10 + parsed)
+            setCalcState({
+                ...calcState, 
+                outputNumber:outputNumber*10 + parsed ,
+                ans: (ans ===  0)? outputNumber*10 + parsed : calcState.ans
+            })
         }
     }
     return (
