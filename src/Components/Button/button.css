@@ -1,0 +1,13 @@
+.button {
+    width: 25%;
+    height: 40%;
+    font-size: 30px;
+}
+.buttons-container {
+    height: 200px;
+    
+}
+
+.equal {
+    width: 50%;
+}

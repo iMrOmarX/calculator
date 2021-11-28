@@ -1,0 +1,7 @@
+.calculator {
+    width: 30%;
+    height: 717px;
+    flex-direction: column;
+    border-radius: 30px;
+    overflow: hidden;
+}

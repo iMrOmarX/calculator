@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import Calculator from './Calculator';
 
+import Calculator from './Components/Calculator/Calculator';
+import "./App.css"
 function App() {
   return (
-    <div className="App">
-      <Calculator/>
+    <div className="center app">
+      
+      <Calculator className="center"/>
     </div>
   );
 }
